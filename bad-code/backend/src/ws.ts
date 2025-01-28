@@ -1,6 +1,6 @@
 import { Server, Socket } from "socket.io";
 import { Server as HttpServer } from "http";
-import { fetchS3Folder, saveToS3 } from "./aws";
+import { fetchGCSFolder, saveToGCS } from "./aws";
 import path from "path";
 import { fetchDir, fetchFileContent, saveFile } from "./fs";
 import { TerminalManager } from "./pty";
@@ -26,7 +26,7 @@ export function initWs(httpServer: HttpServer) {
             return;
         }
 
-        await fetchS3Folder(`code/${replId}`, path.join(__dirname, `../tmp/${replId}`));
+        await fetchGCSFolder(`code/${replId}`, path.join(__dirname, `../tmp/${replId}`));
         socket.emit("loaded", {
             rootContent: await fetchDir(path.join(__dirname, `../tmp/${replId}`), "")
         });
@@ -59,7 +59,7 @@ function initHandlers(socket: Socket, replId: string) {
     socket.on("updateContent", async ({ path: filePath, content }: { path: string, content: string }) => {
         const fullPath = path.join(__dirname, `../tmp/${replId}/${filePath}`);
         await saveFile(fullPath, content);
-        await saveToS3(`code/${replId}`, filePath, content);
+        await saveToGCS(`code/${replId}`, filePath, content);
     });
 
     socket.on("requestTerminal", async () => {

@@ -1,5 +1,5 @@
 import { Express } from "express";
-import { copyS3Folder } from "./aws";
+import { copyGCSFolder } from "./aws";
 import express from "express";
 
 export function initHttp(app: Express) {
@@ -14,7 +14,7 @@ export function initHttp(app: Express) {
             return;
         }
 
-        await copyS3Folder(`base/${language}`, `code/${replId}`);
+        await copyGCSFolder(`base/${language}`, `code/${replId}`);
 
         res.send("Project created");
     });
