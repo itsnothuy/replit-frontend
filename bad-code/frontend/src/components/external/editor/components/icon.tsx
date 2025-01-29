@@ -1,5 +1,5 @@
-import React, {ReactNode} from 'react'
-import {SiHtml5, SiCss3, SiJavascript, SiTypescript, SiJson} from "react-icons/si";
+import {ReactNode} from 'react'
+import {SiHtml5, SiCss3, SiJavascript, SiTypescript, SiJson, SiPython, SiMarkdown, SiJava} from "react-icons/si";
 import {FcFolder, FcOpenedFolder, FcPicture, FcFile} from "react-icons/fc";
 import {AiFillFileText} from "react-icons/ai";
 
@@ -12,6 +12,8 @@ function getIconHelper() {
   cache.set("css", <SiCss3 color="purple"/>);
   cache.set("json", <SiJson color="#5656e6"/>);
   cache.set("html", <SiHtml5 color="#e04e2c"/>);
+  cache.set("py", <SiPython color="#3776ab" />);
+  cache.set("md", <SiMarkdown color="#000" />);
   cache.set("png", <FcPicture/>);
   cache.set("jpg", <FcPicture/>);
   cache.set("ico", <FcPicture/>);

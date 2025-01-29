@@ -7,7 +7,7 @@ export const Code = ({ selectedFile, socket }: { selectedFile: File | undefined,
     return null
 
   const code = selectedFile.content
-  let language = selectedFile.name.split('.').pop()
+  let language = selectedFile.name.split('.').pop();
 
   if (language === "js" || language === "jsx")
     language = "javascript";
@@ -32,6 +32,13 @@ export const Code = ({ selectedFile, socket }: { selectedFile: File | undefined,
         language={language}
         value={code}
         theme="vs-dark"
+        options={{
+          minimap: { enabled: true },
+          automaticLayout: true,
+          autoClosingBrackets: "always",
+          autoIndent: "advanced",
+          // any others you want
+        }}
         onChange={debounce((value) => {
           // Should send diffs, for now sending the whole file
           // PR and win a bounty!
